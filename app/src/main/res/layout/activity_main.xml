@@ -6,33 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/BtnKo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="한국어"/>
-    <Button
-        android:id="@+id/BtnEn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="영어"/>
-    <Button
-        android:id="@+id/BtnCh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="중국어"/>
-    <Button
-        android:id="@+id/BtnText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="이미지"/>
-    <TextView
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ㅎㅇ"/>
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.MapFragment" />
 
 </LinearLayout>

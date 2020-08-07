@@ -26,6 +26,8 @@
             android:value="ocr" />
         <!-- To use multiple models: android:value="ocr,model2,model3" -->
         <meta-data android:name="com.google.ar.core" android:value="required"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAdOfPxUOh3WhLMcUNHrbaVMLNAae4eKiM"/>
     </application>
 
 </manifest>
