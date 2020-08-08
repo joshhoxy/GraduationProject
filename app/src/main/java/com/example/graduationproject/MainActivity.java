@@ -1,49 +1,127 @@
 package com.example.graduationproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import android.app.FragmentManager;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.android.gms.location.places.Places;
+import com.google.android.gms.vision.CameraSource;
+import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.text.TextBlock;
+import com.google.android.gms.vision.text.TextRecognizer;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
+import java.io.IOException;
 
+public class MainActivity extends AppCompatActivity {
+
+    SurfaceView cameraView;
+    TextView textView;
+    CameraSource cameraSource;
+    final int RequestCameraPermissionID = 1001;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case RequestCameraPermissionID: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    try {
+                        cameraSource.start(cameraView.getHolder());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        MapFragment mapFragment = (MapFragment)fragmentManager
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync((OnMapReadyCallback) this);
-    }
+        cameraView = (SurfaceView)findViewById(R.id.surface_view);
+        textView = (TextView)findViewById(R.id.text_view);
 
-    @Override
-    public void onMapReady(final GoogleMap map) {
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
+        if(!textRecognizer.isOperational())
+        {
+            Log.w("MainActivity","Detector dependencies are not yet available");
+        }
+        else{
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+            cameraSource = new CameraSource.Builder(getApplicationContext(), textRecognizer)
+                    .setFacing(CameraSource.CAMERA_FACING_BACK)
+                    .setRequestedPreviewSize(1280,1024)
+                    .setRequestedFps(2.0f)
+                    .setAutoFocusEnabled(true)
+                    .build();
+            cameraView.getHolder().addCallback(new SurfaceHolder.Callback(){
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
-        map.addMarker(markerOptions);
+                @Override
+                public void surfaceCreated(SurfaceHolder holder) {
 
-        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        map.animateCamera(CameraUpdateFactory.zoomTo(10));
+                    try{
+                        if(ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.CAMERA},
+                                    RequestCameraPermissionID);
+                            return;
+                        }
+
+                        cameraSource.start(cameraView.getHolder());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+                }
+
+                @Override
+                public void surfaceDestroyed(SurfaceHolder holder) {
+                    cameraSource.stop();
+                }
+            });
+
+            textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
+                @Override
+                public void release() {
+
+                }
+
+                @Override
+                public void receiveDetections(Detector.Detections<TextBlock> detections) {
+                    Log.d("Main","receiveDetections");
+                    final SparseArray<TextBlock> items = detections.getDetectedItems();
+                    if(items.size() != 0){
+                        textView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for(int i = 0; i<items.size(); ++i){
+                                    TextBlock item = items.valueAt(i);
+                                    stringBuilder.append(item.getValue());
+                                    stringBuilder.append("\n");
+                                }
+                                textView.setText(stringBuilder.toString());
+                            }
+                        });
+                    }
+                }
+            });
+        }
     }
 }
