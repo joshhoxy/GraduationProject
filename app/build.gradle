@@ -56,4 +56,7 @@ dependencies {
 
     // Alternatively, use ArSceneView without the UX dependency.
     implementation 'com.google.ar.sceneform:core:1.15.0'
+
+    // Used for OCR, get google vision api.
+    implementation 'com.google.android.gms:play-services-vision:20.1.0'
 }
