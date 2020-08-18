@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button loginBtn = findViewById(R.id.btnLogin);
         Button ocrBtn = findViewById(R.id.btnOcr);
         Button mapBtn = findViewById(R.id.btnMap);
@@ -23,9 +22,11 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //승환님 액티비티 연결해주세용!
+                Intent intent = new Intent(getApplicationContext(), com.example.graduationproject.login.SignUpActivity.class);
+                startActivity(intent);
             }
         });
+
         ocrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,11 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         });
-
-
-
-
-
 
     }
 
