@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.graduationproject.parse.MapMain;
+import com.example.graduationproject.parse.MapMainActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapMain.class);
+                Intent intent = new Intent(getApplicationContext(), MapMainActivity.class);
                 startActivity(intent);
+
             }
         });
     }
