@@ -20,11 +20,14 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
     SurfaceView cameraView;
-    TextView textView;
+    TextView textView, textViewAll;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
 
@@ -50,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_main);
+        for (int i=0;i<10;i++){
 
+        }
         cameraView = (SurfaceView)findViewById(R.id.surface_view);
         textView = (TextView)findViewById(R.id.text_view);
+        textViewAll = (TextView)findViewById(R.id.text_view_all);
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
         if(!textRecognizer.isOperational())
@@ -103,21 +109,52 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                ArrayList<String> result = new ArrayList<String>();
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     Log.d("Main","receiveDetections");
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
+                    int count = 100;
+
                     if(items.size() != 0){
                         textView.post(new Runnable() {
                             @Override
                             public void run() {
+
                                 StringBuilder stringBuilder = new StringBuilder();
-                                for(int i = 0; i<items.size(); ++i){
-                                    TextBlock item = items.valueAt(i);
+                                for (int j = 0; j < items.size(); ++j) {
+                                    TextBlock item = items.valueAt(j);
                                     stringBuilder.append(item.getValue());
                                     stringBuilder.append("\n");
                                 }
-                                textView.setText(stringBuilder.toString());
+                                result.add(stringBuilder.toString());
+
+                                int[] index = new int[count];
+                                if(result.size() == count){
+                                    int max_idx = 0;
+                                    int max_value = 0;
+                                    index[0] = 0;
+                                    Collections.sort(result);
+                                    for ( int i=0; i< result.size()-1; i++) {
+                                        if (result.get(i).equalsIgnoreCase(result.get(i + 1)))
+                                            index[i+1] = index[i]+1;
+                                    }
+                                    Arrays.sort(index);
+                                    int ind_max = index[index.length-1];
+                                    String mod_result = result.get(ind_max).toString();
+
+                                    /*for (int i=0;i<(count - 1);i++){
+                                        if(index[i] < index[i + 1]){
+                                            max_idx = i + 1;
+                                            max_value = index[i + 1];
+                                        }
+                                    }
+                                    String mod_result = result.get(max_idx).toString();*/
+
+                                    textView.setText(mod_result + ", " + String.valueOf(ind_max + 1) + "%");
+                                }
+                                String list = result.toString();
+                                textViewAll.setText(list);
                             }
                         });
                     }
@@ -126,4 +163,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-

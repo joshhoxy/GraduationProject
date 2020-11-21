@@ -15,11 +15,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button loginBtn = findViewById(R.id.btnLogin);
+/*        Button loginBtn = findViewById(R.id.btnLogin);
         Button ocrBtn = findViewById(R.id.btnOcr);
         Button mapBtn = findViewById(R.id.btnMap);
+        Button dataBtn = findViewById(R.id.btnData);*/
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+
+        /*loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), com.example.graduationproject.login.SignUpActivity.class);
@@ -41,5 +43,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        dataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), com.example.graduationproject.database.MainActivity.class);
+                startActivity(intent);
+            }
+        });*/
     }
 }

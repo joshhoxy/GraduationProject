@@ -13,15 +13,35 @@
     <SurfaceView
         android:id="@+id/surface_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="2"/>
+
+    <fragment
+        android:id="@+id/show_result"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </fragment>
+
+
+    <TextView
+        android:id="@+id/text_view_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="121dp"
+        android:text="None"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/text_view"
-        android:text="None"
-        android:layout_alignParentBottom="true"
-        android:textColor="@android:color/white"
-        android:textSize="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:text="None"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
 
 </RelativeLayout>

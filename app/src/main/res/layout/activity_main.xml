@@ -1,29 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnOcr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:text="OCR"/>
-    <Button
-        android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
+        >
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/proposal_main_trans"/>
+
+    <TextView
+        android:id="@+id/Saying"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:textAlignment="center"
+        android:layout_marginBottom="50dp"
+        android:text="WHAT's IN there?"
+        android:textColor="#ffffff"
+        android:textSize="30dp"
+        />
+
+        <Button
+            android:id="@+id/Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:text="Sign in"
+            android:textColor="#ffffff"
+            style="?android:borderlessButtonStyle"
+            android:textSize="20dp" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/main_section"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.17"
+        android:orientation="horizontal"
+        >
+
+        <com.github.florent37.diagonallayout.DiagonalLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:text="MAP"/>
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:text="LOGIN"/>
+        app:diagonal_angle="20"
+        app:diagonal_position="right"
+        app:diagonal_direction="right">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                android:id="@+id/btn_myList"
+                android:clickable="true"
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:src="@drawable/my_info"
+                    android:scaleType="fitStart"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="7"
+                    android:text="My List"
+                    android:gravity="left |center" />
+
+            </LinearLayout>
+        </com.github.florent37.diagonallayout.DiagonalLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_OCR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:src="@drawable/ocr_find"gg
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Do whats in"
+                android:gravity="center"
+                android:layout_weight="7"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
