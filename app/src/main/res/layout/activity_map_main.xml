@@ -1,24 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout
+    tools:context="com.example.graduationproject.parse.MapMainActivity"
+    android:orientation="vertical" android:id="@+id/layout_main"
+    android:layout_height="match_parent" android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/layout_main"
-    android:orientation="vertical"
-    tools:context=".parse.MapMainActivity" >
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/distanceDefault"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="30dp"
+            android:text="반경 "/>
+
+        <EditText
+            android:id="@+id/distanceValue"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="30dp"
+            android:hint="거리"/>
+
+        <TextView
+            android:id="@+id/distanceUnit"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="30dp"
+            android:text="M "/>
+
+        <TextView
+            android:id="@+id/placeDefault"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="30dp"
+            android:text="장소"/>
+
+        <Spinner
+            android:id="@+id/placeSpinner"
+            android:layout_height="50dp"
+            android:layout_width="134dp"
+            android:textSize="30dp"
+            android:prompt="@array/placeType"
+            android:spinnerMode="dropdown"/>
+     </TableRow>
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.8"
-            android:id="@+id/map"
-            tools:context=".MapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            tools:context="com.example.graduationproject.parse.MapMainActivity"
+            android:id="@+id/map" android:layout_height="61dp"
+            android:layout_width="match_parent" android:layout_weight="0.8"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
         <Button
-            android:text="장소검색"
-            android:layout_width="match_parent"
+            android:id="@+id/button"
             android:layout_height="0dp"
-            android:layout_weight="0.2"
-            android:id="@+id/button"/>
+            android:layout_width="match_parent"
+            android:text="장소검색"
+            android:layout_weight="0.2"/>
 
 </LinearLayout>

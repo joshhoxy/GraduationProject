@@ -19,7 +19,11 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.graduationproject.R;
@@ -66,26 +70,26 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
     private static final int UPDATE_INTERVAL_MS = 1000;  // 1초
     private static final int FASTEST_UPDATE_INTERVAL_MS = 500; // 0.5초
 
-
     // onRequestPermissionsResult에서 수신된 결과에서 ActivityCompat.requestPermissions를 사용한 퍼미션 요청을 구별하기 위해 사용됩니다.
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     boolean needRequest = false;
 
-
     // 앱을 실행하기 위해 필요한 퍼미션을 정의합니다.
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
 
-
-    Location mCurrentLocatiion;
+    Location mCurrentLocation;
     LatLng currentPosition;
-
 
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest locationRequest;
     private Location location;
 
-
     private View mLayout;
+    EditText distanceValue;
+    Spinner placeValue;
+    ArrayAdapter adapter1;
+    public String place_v;
+    public String distance_v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,30 +118,113 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
 
         previous_marker = new ArrayList<Marker>();
 
+        //반경과 장소에 따른 정보 변화
+        distanceValue = (EditText)findViewById(R.id.distanceValue);
+        placeValue = (Spinner)findViewById(R.id.placeSpinner);
+        adapter1 = ArrayAdapter.createFromResource(this, R.array.placeType, android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        placeValue.setAdapter(adapter1);
+        placeValue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id)
+            {
+                String select_item = parent.getItemAtPosition(position).toString();
+                define_selected_item(select_item);
+                Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString()+"을 선택하셨습니다", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
+
+            }
+        });
+
         Button button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPlaceInformation(currentPosition);
+                distance_v = distanceValue.getText().toString();
+                Toast.makeText(getApplicationContext(), distance_v + "이것은 거리입니다.", Toast.LENGTH_SHORT).show();
+                showPlaceInformation(currentPosition, distance_v, place_v);
             }
         });
+
+
     }
 
-    public void showPlaceInformation(LatLng location)
+    public void define_selected_item(String item){
+        place_v = item;
+    }
+
+    public void showPlaceInformation(LatLng location, String distance_value, String place_value)
     {
         mMap.clear();//지도 클리어
 
         if (previous_marker != null)
             previous_marker.clear();//지역정보 마커 클리어
 
-        new NRPlaces.Builder()
-                .listener(MapMainActivity.this)
-                .key("AIzaSyC6BsIU5dLlkSK56mRqNvVe_UJaEGudQKs")
-                .latlng(location.latitude, location.longitude)//현재 위치
-                .radius(500) //500 미터 내에서 검색
-                .type(PlaceType.RESTAURANT) //음식점
-                .build()
-                .execute();
+        if(place_value.equalsIgnoreCase("restaurant")){
+            new NRPlaces.Builder()
+                    .listener(MapMainActivity.this)
+                    .key("AIzaSyAOXMGdV55T36994k1erX0-hwpvnvRm9Jc")
+                    .latlng(location.latitude, location.longitude)//현재 위치
+                    .radius(Integer.parseInt(distance_value)) //500 미터 내에서 검색
+                    .type(PlaceType.RESTAURANT) //음식점
+                    .build()
+                    .execute();
+            Toast.makeText(getApplicationContext(), "Success to matching places", Toast.LENGTH_SHORT).show();
+        }
+        else if(place_value.equalsIgnoreCase("cafe")){
+            new NRPlaces.Builder()
+                    .listener(MapMainActivity.this)
+                    .key("AIzaSyAOXMGdV55T36994k1erX0-hwpvnvRm9Jc")
+                    .latlng(location.latitude, location.longitude)//현재 위치
+                    .radius(Integer.parseInt(distance_value)) //500 미터 내에서 검색
+                    .type(PlaceType.CAFE) //음식점
+                    .build()
+                    .execute();
+            Toast.makeText(getApplicationContext(), "Success to matching places", Toast.LENGTH_SHORT).show();
+        }
+        else if(place_value.equalsIgnoreCase("bakery")){
+            new NRPlaces.Builder()
+                    .listener(MapMainActivity.this)
+                    .key("AIzaSyAOXMGdV55T36994k1erX0-hwpvnvRm9Jc")
+                    .latlng(location.latitude, location.longitude)//현재 위치
+                    .radius(Integer.parseInt(distance_value)) //500 미터 내에서 검색
+                    .type(PlaceType.BAKERY) //음식점
+                    .build()
+                    .execute();
+            Toast.makeText(getApplicationContext(), "Success to matching places", Toast.LENGTH_SHORT).show();
+        }
+        else if(place_value.equalsIgnoreCase("bus_station")){
+            new NRPlaces.Builder()
+                    .listener(MapMainActivity.this)
+                    .key("AIzaSyAOXMGdV55T36994k1erX0-hwpvnvRm9Jc")
+                    .latlng(location.latitude, location.longitude)//현재 위치
+                    .radius(Integer.parseInt(distance_value)) //500 미터 내에서 검색
+                    .type(PlaceType.BUS_STATION) //음식점
+                    .build()
+                    .execute();
+            Toast.makeText(getApplicationContext(), "Success to matching places", Toast.LENGTH_SHORT).show();
+        }
+        else if(place_value.equalsIgnoreCase("hospital")){
+            new NRPlaces.Builder()
+                    .listener(MapMainActivity.this)
+                    .key("AIzaSyAOXMGdV55T36994k1erX0-hwpvnvRm9Jc")
+                    .latlng(location.latitude, location.longitude)//현재 위치
+                    .radius(Integer.parseInt(distance_value)) //500 미터 내에서 검색
+                    .type(PlaceType.HOSPITAL) //음식점
+                    .build()
+                    .execute();
+            Toast.makeText(getApplicationContext(), "Success to matching places", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Failed to matching places", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -261,7 +348,7 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, markerTitle, markerSnippet);
 
-                mCurrentLocatiion = location;
+                mCurrentLocation = location;
             }
 
 
