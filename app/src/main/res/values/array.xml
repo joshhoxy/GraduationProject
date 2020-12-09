@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="placeType">
+        <item>RESTAURANT</item>
+        <item>CAFE</item>
+        <item>BAKERY</item>
+        <item>BUS_STATION</item>
+        <item>HOSPITAL</item>
+    </string-array>
+</resources>

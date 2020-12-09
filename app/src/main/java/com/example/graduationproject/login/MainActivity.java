@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activit_login_main);
+        setContentView(R.layout.activit_logout_main);
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startSignUpActivity();
