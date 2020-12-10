@@ -1,17 +1,22 @@
 package com.example.graduationproject.ocr;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.graduationproject.R;
 import com.google.android.gms.vision.CameraSource;
@@ -27,9 +32,11 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity {
 
     SurfaceView cameraView;
-    TextView textView, textViewAll;
+    public static TextView textView, textViewAll;
     CameraSource cameraSource;
     final int RequestCameraPermissionID = 1001;
+    public static String mod_result;
+    Button buttonToMap;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -49,16 +56,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public String getModResult(){
+        return mod_result;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_main);
+        ImageButton InfoButton = findViewById(R.id.
+                btn_more);
+
+        InfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ComponentName cn = new ComponentName("com.example.graduationproject", "com.example.graduationproject.ocr.OcrResultActivity");
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setComponent(cn);
+
+                startActivity(intent);
+            }
+        });
+
         for (int i=0;i<10;i++){
 
         }
         cameraView = (SurfaceView)findViewById(R.id.surface_view);
         textView = (TextView)findViewById(R.id.text_view);
         textViewAll = (TextView)findViewById(R.id.text_view_all);
+
+        buttonToMap = (Button)findViewById(R.id.buttonMap);
+
+        buttonToMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ComponentName cn = new ComponentName("com.example.graduationproject", "com.example.graduationproject.parse.MapMainActivity");
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setComponent(cn);
+                startActivity(intent);
+            }
+        });
 
         TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
         if(!textRecognizer.isOperational())
@@ -109,12 +150,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+
+
                 ArrayList<String> result = new ArrayList<String>();
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     Log.d("Main","receiveDetections");
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
-                    int count = 100;
+                    int count = 5;
 
                     if(items.size() != 0){
                         textView.post(new Runnable() {
@@ -129,32 +172,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 result.add(stringBuilder.toString());
 
-                                int[] index = new int[count];
-                                if(result.size() == count){
-                                    int max_idx = 0;
-                                    int max_value = 0;
-                                    index[0] = 0;
-                                    Collections.sort(result);
-                                    for ( int i=0; i< result.size()-1; i++) {
-                                        if (result.get(i).equalsIgnoreCase(result.get(i + 1)))
-                                            index[i+1] = index[i]+1;
-                                    }
-                                    Arrays.sort(index);
-                                    int ind_max = index[index.length-1];
-                                    String mod_result = result.get(ind_max).toString();
-
-                                    /*for (int i=0;i<(count - 1);i++){
-                                        if(index[i] < index[i + 1]){
-                                            max_idx = i + 1;
-                                            max_value = index[i + 1];
-                                        }
-                                    }
-                                    String mod_result = result.get(max_idx).toString();*/
-
-                                    textView.setText(mod_result + ", " + String.valueOf(ind_max + 1) + "%");
-                                }
-                                String list = result.toString();
-                                textViewAll.setText(list);
+                                if(result.size() == count)
+                                    checkResult(result);
                             }
                         });
                     }
@@ -162,5 +181,27 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
-}
 
+    public void checkResult(ArrayList<String> result)
+    {
+        int[] index = new int[100];
+        Collections.sort(result);
+        for(int i = 0; i < result.size() - 1; i++)
+        {
+            if(result.get(i).equalsIgnoreCase(result.get(i+1)))
+                index[i+1] = index[i]+1;
+        }
+        Arrays.sort(index);
+        int max_count = index[index.length -1];
+
+        String ocr_result = result.get(max_count).toString();
+        //Log.d("check", ocr_result);
+
+        Intent intent = new Intent(getApplicationContext(), OcrResultActivity.class);
+        intent.putExtra("ocr_result", ocr_result);
+        //setResult(RESULT_OK, intent);
+        startActivity(intent);
+    }
+
+    public String result_OCR = this.getModResult();
+}

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "836816154845",
+    "firebase_url": "https://fir-fireabase.firebaseio.com",
+    "project_id": "fir-fireabase",
+    "storage_bucket": "fir-fireabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836816154845:android:3eda977773a191176fab34",
+        "android_client_info": {
+          "package_name": "com.example.graduationproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836816154845-v1eh2c6i47tbgqontjg0d2dttgtjv9ho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEYQiiiOB1Z42HcV_GmpgSdaUUMa1zPFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836816154845-v1eh2c6i47tbgqontjg0d2dttgtjv9ho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
