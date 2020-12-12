@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.graduationproject.R;
-import com.example.graduationproject.parse.MapMainActivity;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -85,14 +84,29 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         ArrayList<StoreData> store_data = new ArrayList<>();
         store_data = places.getList();
 
+        int i = 0;
+        double[] similar = new double[store_data.size()];
         //Log.d("check", "check " + result);
         for(StoreData data : store_data)
         {
-            Log.d("check", data.getStore_name());
-            Log.d("check", "check" + result);
-            if(data.getStore_name().equalsIgnoreCase(result))
-                place_result_txtView.setText(data.getRating().toString());
+            String store_name = data.getStore_name();
+
+            similar[i] = similarity(store_name, result);
+           i++;
         }
+
+        double max = 0;
+        int max_index = 0;
+        for(int j = 0; j < i; j++)
+        {
+            if(max < similar[j])
+            {
+                max = similar[j];
+                max_index = j;
+            }
+        }
+        place_result_txtView.setText(store_data.get(max_index).getBusiness_status());
+        Log.d("check", store_data.get(max_index).getStore_name());
 
         while(true)
         {
@@ -102,5 +116,52 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
                 e.printStackTrace();
             }
         }
+    }
+
+    private double similarity(String s1, String s2){
+        String longer = s1, shorter = s2;
+
+        if(s1.length() < s2.length()){
+            longer = s2;
+            shorter = s1;
+        }
+
+        int longerLength = longer.length();
+        if(longerLength == 0) return 1.0;
+
+        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+    }
+
+    private int editDistance(String s1, String s2){
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+
+        int[] costs = new int[s2.length() + 1];
+
+        for(int i = 0; i <= s1.length(); i++)
+        {
+            int lastValue = i;
+            for(int j = 0; j <= s2.length(); j++)
+            {
+                if(i ==0){
+                    costs[j] = j;
+                } else {
+                    if( j > 0){
+                        int newValue = costs[j-1];
+
+                        if(s1.charAt(i - 1) != s2.charAt(j - 1)){
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j])+1;
+                        }
+
+                        costs[j-1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+
+            if (i > 0) costs[s2.length()] = lastValue;
+        }
+
+        return costs[s2.length()];
     }
 }

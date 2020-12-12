@@ -63,12 +63,9 @@ public class PlaceAPI {
 
             jsonObject = new JSONObject(mResponseBuilder.toString());
             jsonArray = jsonObject.getJSONArray("results");
-            //Log.d("check", mResponseBuilder.toString());
 
             for(int i = 0; i < jsonArray.length(); i++)
             {
-
-                Log.d("check", String.valueOf(jsonArray.length()));
                 JSONObject result = jsonArray.getJSONObject(i);
 
                 //이름 얻기
@@ -79,19 +76,16 @@ public class PlaceAPI {
                 String price_level = "0";
                 if(result.has("price_level"))
                     price_level = result.getString("price_level");
-                Log.d("check", "price_level : " + price_level);
 
                 //rating
                 String rating = "0";
                 if(result.has("rating"))
                     rating = result.getString("rating");
-                Log.d("check", "rating : " + rating);
 
                 //business_status
                 String business_status = "null";
                 if(result.has("business_status"))
                     business_status = result.getString("business_status");
-                Log.d("check", "business_status : " + business_status);
 
                 //opening_hours
                 JSONObject opening_hours;
@@ -100,7 +94,6 @@ public class PlaceAPI {
                 {
                     opening_hours = result.getJSONObject("opening_hours");
                     open_now = opening_hours.getString("open_now");
-                    Log.d("check", "open_now : " + open_now);
                 }
 
                 mList.add(new StoreData(store_name, Float.valueOf(price_level), Float.valueOf(rating), business_status, open_now));
