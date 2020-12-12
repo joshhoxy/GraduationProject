@@ -15,8 +15,9 @@
             android:id="@+id/distanceDefault"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textSize="20dp"
-            android:text="Distance "/>
+            android:text="Distance: "/>
 
         <EditText
             android:id="@+id/distanceValue"
@@ -37,11 +38,11 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textSize="20dp"
-            android:text="Category"/>
+            android:text="Category:"/>
 
         <Spinner
             android:id="@+id/placeSpinner"
-            android:layout_width="134dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
             android:prompt="@array/placeType"
             android:spinnerMode="dropdown"
@@ -55,7 +56,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/search_button"
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:text="Search Start"

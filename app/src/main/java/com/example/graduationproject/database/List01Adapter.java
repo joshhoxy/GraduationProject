@@ -11,7 +11,7 @@ import com.example.graduationproject.R;
 
 public class List01Adapter extends BaseAdapter {
     LayoutInflater layoutInflater;
-    private final String[] data = new String[]{"test","test","test","test","test","test","test"};
+    private final String[] data = new String[]{"","test","test","test","test","test","test"};
     public List01Adapter(Context context){
         layoutInflater = LayoutInflater.from(context);
     }

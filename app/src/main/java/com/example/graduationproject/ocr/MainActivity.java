@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView)findViewById(R.id.text_view);
         textViewAll = (TextView)findViewById(R.id.text_view_all);
 
-        buttonToMap = (Button)findViewById(R.id.buttonMap);
+        buttonToMap = (Button)findViewById(R.id.btn_notFound); //#CHANGE
 
         buttonToMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     Log.d("Main","receiveDetections");
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
-                    int count = 5;
+                    int count = 20; //#CHANGE 5 ->20
 
                     if(items.size() != 0){
                         textView.post(new Runnable() {
