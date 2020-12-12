@@ -9,7 +9,11 @@
       android:id="@+id/logoutButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+<<<<<<< HEAD
       android:text="Logout"
+=======
+      android:text="로그인"
+>>>>>>> d7086b55ee287cfbca0a8e237190fb3fb1a3f949
       />
 
 </LinearLayout>
