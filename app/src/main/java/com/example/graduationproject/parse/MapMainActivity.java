@@ -132,7 +132,7 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
             {
                 String select_item = parent.getItemAtPosition(position).toString();
                 define_selected_item(select_item);
-                Toast.makeText(getApplicationContext(),parent.getItemAtPosition(position).toString()+"is selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),parent.getItemAtPosition(position).toString()+" is selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override

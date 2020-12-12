@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                startToast("페이스북 로그인에 성공하였습니다.");
+                startToast("Success to login by Facebook.");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
             @Override
@@ -127,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                startToast("로그인에 성공하였습니다.");
+                                startToast("Success to login.");
                                 startMainActivity();
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
         else {
-            startToast("이메일 또는 비밀번호를 입력해 주세요.");
+            startToast("Enter e-mail or password");
         }
     }
 
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            startToast("FaceBook 로그인에 실패하였습니다.");
+                            startToast("Fail to login by FaceBook ");
                         }
 
                         // ...
