@@ -123,6 +123,14 @@
         android:text="This is the result of searching nearby stores based on your current location."
         android:textColor="@color/black"
         android:textSize="13dp" />
+    <TextView
+        android:id="@+id/place_result_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="13dp" />
 
     <ListView
         android:id="@+id/listview"

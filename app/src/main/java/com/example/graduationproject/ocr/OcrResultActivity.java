@@ -5,17 +5,10 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.graduationproject.R;
-import com.example.graduationproject.database.List01Adapter;
-import com.example.graduationproject.database.ListInfoActivity;
-import com.example.graduationproject.parse.MapMainActivity;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -42,8 +35,6 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
     TextView ocr_result_txtView;
     TextView place_now_txtView;
     TextView place_result_txtView;
-    Button mapBtn;
-    List01Adapter adpater;
 
     String result;
     GpsTracker gpsTracker;
@@ -57,23 +48,9 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_result);
 
-        //
-        ListView listView = findViewById(R.id.listview);
-        Button noBtn = findViewById(R.id.no_btn);
-        adpater = new List01Adapter(this);
-        listView.setAdapter(adpater);
-
-        noBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adpater.notifyDataSetChanged();
-            }
-        });
-
-
         ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_text);
         place_now_txtView = (TextView) findViewById(R.id.place_now_text);
-        //place_result_txtView = (TextView) findViewById(R.id.place_result_view);
+        place_result_txtView = (TextView) findViewById(R.id.place_result_view);
 
         //인텐트로 받아온 ocr 결과값을 꺼낸다
         Intent intent = getIntent();
@@ -90,15 +67,6 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
 
         String now_location = latitude + ", " + longitude;
         place_now_txtView.setText(now_location);
-
-        mapBtn = (Button) findViewById(R.id.btn_showMap);
-        mapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),com.example.graduationproject.parse.MapMainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         Thread t = new Thread(this);
         t.start();
