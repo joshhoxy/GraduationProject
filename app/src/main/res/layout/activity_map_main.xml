@@ -15,38 +15,38 @@
             android:id="@+id/distanceDefault"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="30dp"
-            android:text="반경 "/>
+            android:textSize="20dp"
+            android:text="Distance "/>
 
         <EditText
             android:id="@+id/distanceValue"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="30dp"
-            android:hint="거리"/>
+            android:textSize="20dp"
+            android:hint="50"/>
 
         <TextView
             android:id="@+id/distanceUnit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:text="M "/>
 
         <TextView
             android:id="@+id/placeDefault"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="30dp"
-            android:text="장소"/>
+            android:textSize="20dp"
+            android:text="Category"/>
 
         <Spinner
             android:id="@+id/placeSpinner"
-            android:layout_height="50dp"
             android:layout_width="134dp"
-            android:textSize="30dp"
+            android:layout_height="50dp"
             android:prompt="@array/placeType"
-            android:spinnerMode="dropdown"/>
-     </TableRow>
+            android:spinnerMode="dropdown"
+            android:textSize="30dp" />
+    </TableRow>
 
         <fragment
             tools:context="com.example.graduationproject.parse.MapMainActivity"
@@ -58,7 +58,7 @@
             android:id="@+id/button"
             android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:text="장소검색"
+            android:text="Search Start"
             android:layout_weight="0.2"/>
 
 </LinearLayout>

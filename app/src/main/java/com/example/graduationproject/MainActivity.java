@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         myListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.graduationproject.parse.MapMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), com.example.graduationproject.database.ListInfoActivity.class);
                 startActivity(intent);
             }
         });

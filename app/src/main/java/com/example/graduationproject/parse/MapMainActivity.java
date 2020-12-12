@@ -132,7 +132,7 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
             {
                 String select_item = parent.getItemAtPosition(position).toString();
                 define_selected_item(select_item);
-                Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString()+"을 선택하셨습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),parent.getItemAtPosition(position).toString()+"is selected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -147,7 +147,7 @@ public class MapMainActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public void onClick(View v) {
                 distance_v = distanceValue.getText().toString();
-                Toast.makeText(getApplicationContext(), distance_v + "이것은 거리입니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Start to find locations within"+ distance_v , Toast.LENGTH_SHORT).show();
                 showPlaceInformation(currentPosition, distance_v, place_v);
             }
         });
