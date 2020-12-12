@@ -16,17 +16,17 @@
         android:layout_alignParentTop="true"
         android:id="@+id/linearUpper">
 
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="120dp"
-        android:id="@+id/intendMap"
-        android:text="Can't find?"/>
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:id="@+id/intendMap"
+            android:text="Can't find?"/>
 
-    <Button
-        android:layout_height="36dp"
-        android:layout_width="105dp"
-        android:id="@+id/buttonMap"
-        android:text="click"/>
+        <Button
+            android:layout_height="36dp"
+            android:layout_width="105dp"
+            android:id="@+id/buttonMap"
+            android:text="click"/>
     </LinearLayout>
 
     <SurfaceView
@@ -58,45 +58,45 @@
             android:scaleType="centerCrop"
             android:background="#00000000"
             />
-    <fragment
-        android:id="@+id/detection_area"
-        android:name="com.example.graduationproject.ocr.DetectionFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_weight="1"
-        >
-    </fragment>
+        <fragment
+            android:id="@+id/detection_area"
+            android:name="com.example.graduationproject.ocr.DetectionFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            >
+        </fragment>
         <View
             android:id="@+id/empty_space"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"></View>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="0.5">
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="None"
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
-    <TextView
-        android:id="@+id/text_view_all"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="None"
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="None"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+            <TextView
+                android:id="@+id/text_view_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="None"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
 
-    </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
