@@ -11,7 +11,13 @@ import com.example.graduationproject.R;
 
 public class List01Adapter extends BaseAdapter {
     LayoutInflater layoutInflater;
-    private final String[] data = new String[]{"","test","test","test","test","test","test"};
+    private final String[] data = new String[]{"name: EDIYA"+"   "+ "location: Gyeonggi-do, Seongnam-si"   +"   " +"rating: 3.8",
+                                                "name: coffee only"+"   "+ "location: Gangnam-gu, Seoul"   +"   " +"rating: 4.5",
+                                                "name: Parsis Baguette"+"   "+ "location: Seocho-gu, Seoul"   +"   " +"rating: 3.7",
+                                                "name: Twosome Place"+"   "+ "location: Gyeonggi-do, Seongnam-si"   +"   " +"rating: 4.1",
+                                                "name: COMPOSE COFFFEE"+"   "+ "location: Gyeonggi-do, Seongnam-si"   +"   " +"rating: 3.8",
+                                                "name: An old chum"+"   "+ "location: Gyeonggi-do, Suwon-si"   +"   " +"rating: 4.2",
+                                                };
     public List01Adapter(Context context){
         layoutInflater = LayoutInflater.from(context);
     }
@@ -38,6 +44,7 @@ public class List01Adapter extends BaseAdapter {
         TextView tv = v.findViewById(R.id.tv);
         String val = data[i]+i;
         tv.setText(val);
+        tv.setSelected(true);
         return v;
     }
 }

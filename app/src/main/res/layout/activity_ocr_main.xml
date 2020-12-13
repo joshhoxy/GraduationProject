@@ -28,6 +28,7 @@
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             android:text="click"
+            android:fontFamily="@font/cafe24regular"
             android:background="@drawable/border_round"/>
     </LinearLayout>
 

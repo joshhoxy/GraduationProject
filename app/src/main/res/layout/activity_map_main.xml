@@ -16,37 +16,41 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textSize="20dp"
-            android:text="Distance: "/>
+            android:textSize="15dp"
+            android:text="Distance: "
+            android:fontFamily="@font/cafe24regular"/>
 
         <EditText
             android:id="@+id/distanceValue"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="20dp"
-            android:hint="50"/>
+            android:textSize="13dp"
+            android:hint="50"
+            android:fontFamily="@font/cafe24regular"/>
 
         <TextView
             android:id="@+id/distanceUnit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="20dp"
-            android:text="M "/>
+            android:textSize="13dp"
+            android:text="M,  "
+            android:fontFamily="@font/cafe24regular"/>
 
         <TextView
             android:id="@+id/placeDefault"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textSize="20dp"
-            android:text="Category:"/>
+            android:textSize="15dp"
+            android:text="Category:"
+            android:fontFamily="@font/cafe24regular"/>
 
         <Spinner
             android:id="@+id/placeSpinner"
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_height="50dp"
             android:prompt="@array/placeType"
             android:spinnerMode="dropdown"
-            android:textSize="30dp" />
+            android:textSize="13dp" />
     </TableRow>
 
         <fragment
@@ -60,6 +64,7 @@
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:text="Search Start"
+            android:fontFamily="@font/cafe24surround"
             android:layout_weight="0.2"/>
 
 </LinearLayout>

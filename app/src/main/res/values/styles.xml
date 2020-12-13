@@ -8,5 +8,4 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">#C15AF4</item>
     </style>
-
 </resources>

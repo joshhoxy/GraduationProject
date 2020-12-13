@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:text="WHAT's IN"
-        android:textSize="24sp"
+        android:textSize="30dp"
         android:textStyle="bold"
+        android:fontFamily="@font/cafe24surround"
         android:textColor="#000000"
         android:gravity="center"
         android:layout_marginBottom= "5dp"
@@ -24,6 +25,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:hint="E-mail"
+        android:fontFamily="@font/cafe24regular"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -36,6 +38,7 @@
         android:inputType="textPassword"
         android:ems="10"
         android:hint="Enter Password"
+        android:fontFamily="@font/cafe24regular"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
@@ -48,6 +51,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:background="@drawable/border_round"
+        android:fontFamily="@font/cafe24surround"
         android:text="Sign in"/>
 
     <LinearLayout
@@ -62,8 +66,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Sign in by other ID"
+            android:text="Sign in by another ID"
             android:textSize="15sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/cafe24regular"
             android:gravity="center"
             android:padding="10dp"/>
 
@@ -71,6 +77,7 @@
             android:id="@+id/googleLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Sign in"
             android:ems="10"
             android:layout_marginBottom="5dp"/>
 
@@ -83,6 +90,23 @@
             android:layout_marginBottom="30dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:text="Are you not our member yet?"
+            android:textSize="15dp"
+            android:fontFamily="@font/cafe24regular"/>
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#00ffffff"
+            android:fontFamily="@font/cafe24surround"
+            android:text="Sign Up"/>
 
     </LinearLayout>
 

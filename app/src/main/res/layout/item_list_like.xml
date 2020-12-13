@@ -8,17 +8,22 @@
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="40dp"
         android:layout_centerVertical="true"
         android:textColor="@color/black"
         android:textSize="20sp"/>
 
     <ImageButton
+        android:id="@+id/btn_goMap"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
-        android:background="#00ffffff"
+        android:background="?attr/selectableItemBackground"
         android:src="@drawable/map"
         android:scaleType="fitCenter"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:clickable="true"
+
+        />
 
 </RelativeLayout>

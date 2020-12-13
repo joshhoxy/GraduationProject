@@ -42,11 +42,22 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
+    Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //회원가입 버튼
+        signUpBtn = findViewById(R.id.signUpButton);
+        signUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),com.example.graduationproject.login.SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
