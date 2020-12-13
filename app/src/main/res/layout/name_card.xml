@@ -2,10 +2,10 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/name_card"
-    android:textColor="@color/colorPrimaryDark"
+    android:textColor="#000000"
     android:gravity="center"
     android:padding="16dp"
-    android:textSize="40sp"
+    android:textSize="20sp"
     android:text="TIGER"
     android:textAllCaps="true"
     android:background="@drawable/round_bg"
