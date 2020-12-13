@@ -37,6 +37,8 @@
         <activity android:name=".parse.MapMainActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".database.ListInfoActivity"/>
+        <activity android:name=".database.ListLikeActivity"/>
 
         <activity android:name="com.facebook.FacebookActivity" android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation" android:label="@string/app_name" />
         <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
