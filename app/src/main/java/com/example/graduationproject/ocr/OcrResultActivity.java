@@ -48,9 +48,9 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_result);
 
-        ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_view);
-        place_now_txtView = (TextView) findViewById(R.id.place_now_view);
-        place_result_txtView = (TextView) findViewById(R.id.place_result_view);
+        ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_text);
+        place_now_txtView = (TextView) findViewById(R.id.place_now_text);
+        place_result_txtView = (TextView) findViewById(R.id.place_result_text);
 
         //인텐트로 받아온 ocr 결과값을 꺼낸다
         Intent intent = getIntent();
@@ -84,6 +84,8 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         ArrayList<StoreData> store_data = new ArrayList<>();
         store_data = places.getList();
 
+        //여기부터
+
         int i = 0;
         double[] similar = new double[store_data.size()];
         //Log.d("check", "check " + result);
@@ -92,7 +94,7 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
             String store_name = data.getStore_name();
 
             similar[i] = similarity(store_name, result);
-           i++;
+            i++;
         }
 
         double max = 0;
@@ -107,6 +109,8 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         }
         place_result_txtView.setText(store_data.get(max_index).getBusiness_status());
         Log.d("check", store_data.get(max_index).getStore_name());
+        //여기까지
+
 
         while(true)
         {
@@ -118,6 +122,7 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         }
     }
 
+    //밑에 함수 두개 추가했습니다~
     private double similarity(String s1, String s2){
         String longer = s1, shorter = s2;
 
