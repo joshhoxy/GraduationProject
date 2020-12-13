@@ -6,6 +6,7 @@ public class StoreData {
     private Float rating;
     private String business_status;
     private String open_now;
+    private String all;
 
     public StoreData(String store_name, Float price_level, Float rating, String business_status, String open_now) {
         this.store_name = store_name;
@@ -34,6 +35,13 @@ public class StoreData {
 
     public String getOpen_now() {
         return open_now;
+    }
+
+
+    public String getAll(){
+        return "Store name : " + store_name
+                + "\nRating " + rating.toString() + "\nBusiness state : " + business_status
+                + "\nOpen now? " + open_now;
     }
 
     public void setStore_name(String store_name) {

@@ -3,15 +3,29 @@ package com.example.graduationproject.ocr;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.graduationproject.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.ar.core.Anchor;
+import com.google.ar.core.HitResult;
+import com.google.ar.core.Plane;
+import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.math.Vector3;
+import com.google.ar.sceneform.rendering.ModelRenderable;
+import com.google.ar.sceneform.rendering.ViewRenderable;
+import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.BaseArFragment;
+import com.google.ar.sceneform.ux.TransformableNode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +49,7 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
     TextView ocr_result_txtView;
     TextView place_now_txtView;
     TextView place_result_txtView;
+    String result_text;
 
     String result;
     GpsTracker gpsTracker;
@@ -42,6 +57,23 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
 
     double latitude;
     double longitude;
+
+    //ar code
+    ArFragment arFragment;
+    private ModelRenderable tigerRenderable;
+    TextView card ;
+    View arrayView[];
+    ViewRenderable content;
+    int selected = 1;
+    String card_content;
+    CharSequence charSequence;
+
+    String store_name;
+    String rating;
+    String business_state;
+    String open_now;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +103,93 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         Thread t = new Thread(this);
         t.start();
 
+        //ar code
+        card = (TextView)findViewById(R.id.make_card);
+        arFragment = (ArFragment)getSupportFragmentManager().findFragmentById(R.id.sceneform_ux_fragment);
+
+        setClickListener();
+
+        setupModel();
+
+        arFragment.setOnTapArPlaneListener(new BaseArFragment.OnTapArPlaneListener(){
+            @Override
+            public void onTapPlane(HitResult hitResult, Plane plane, MotionEvent motionEvent) {
+                //when user tap on plane, we will add model
+                if(selected == 1)
+                {
+                    Anchor anchor = hitResult.createAnchor();
+                    AnchorNode anchorNode = new AnchorNode(anchor);
+                    anchorNode.setParent(arFragment.getArSceneView().getScene());
+
+                    createModel(anchorNode,selected);
+                }
+            }
+        });
+
     }
 
+    private void setupModel() {
+
+        ViewRenderable.builder()
+                .setView(this,R.layout.name_card)
+                .build()
+                .thenAccept(renderable -> content = renderable);
+
+        ModelRenderable.builder()
+                .setSource(
+                        this,
+                        Uri.parse(
+                                "https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb"))
+                .build().thenAccept(renderable -> tigerRenderable = renderable)
+                .exceptionally(
+                        throwable -> {
+                            Toast.makeText(this, "Unable to load Tiger renderable", Toast.LENGTH_LONG).show();
+                            return null;
+                        }
+                );
+
+    }
+
+    private void createModel(AnchorNode anchorNode, int selected){
+        if(selected == 1){
+            TransformableNode ar_text = new TransformableNode(arFragment.getTransformationSystem());
+            ar_text.setParent(anchorNode);
+            ar_text.setRenderable(tigerRenderable);
+            ar_text.select();
+
+
+            addName(anchorNode, ar_text, card_content);
+        }
+    }
+
+    private void addName(AnchorNode anchorNode, TransformableNode model, String name){
+        TransformableNode nameView = new TransformableNode(arFragment.getTransformationSystem());
+        nameView.setLocalPosition(new Vector3(0f, model.getLocalPosition().y+0.5f,0));
+        nameView.setParent(anchorNode);
+        nameView.setRenderable(content);
+        nameView.select();
+
+        TextView txt_name = (TextView)content.getView();
+        txt_name.setText(name);
+
+        txt_name.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                anchorNode.setParent(null);
+            }
+        });
+    }
+
+    private void setClickListener(){
+
+    }
+
+
+    public void onClick(View view){
+        if(view.getId() == R.id.make_card)
+            selected = 1;
+
+    }
 
     @Override
     public void run() {
@@ -107,8 +224,16 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
                 max_index = j;
             }
         }
-        place_result_txtView.setText(store_data.get(max_index).getBusiness_status());
-        Log.d("check", store_data.get(max_index).getStore_name());
+        store_name = store_data.get(max_index).getStore_name();
+        rating = store_data.get(max_index).getRating().toString();
+        business_state = store_data.get(max_index).getBusiness_status();
+        open_now = store_data.get(max_index).getOpen_now();
+        card_content = store_name + "\n" + rating + "\n" + business_state + "\n" + open_now;
+
+        Log.d("check", card_content);
+        charSequence = card_content;
+        //place_result_txtView.setText(charSequence);
+
         //여기까지
 
 
