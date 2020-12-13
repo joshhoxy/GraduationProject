@@ -80,15 +80,15 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_result);
 
-        ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_text);
-        place_now_txtView = (TextView) findViewById(R.id.place_now_text);
-        place_result_txtView = (TextView) findViewById(R.id.place_result_text);
+        //ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_text);
+        //place_now_txtView = (TextView) findViewById(R.id.place_now_text);
+        //place_result_txtView = (TextView) findViewById(R.id.place_result_text);
 
         //인텐트로 받아온 ocr 결과값을 꺼낸다
         Intent intent = getIntent();
         result = intent.getStringExtra("ocr_result");
         //Log.d("check", result);
-        ocr_result_txtView.setText(result);
+        //ocr_result_txtView.setText(result);
 
         //gpsTracker 클래스 사용해서 현재 위치를 알아냄
         gpsTracker = new GpsTracker(OcrResultActivity.this);
@@ -98,7 +98,7 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         longitude = gpsTracker.getLongitude();
 
         String now_location = latitude + ", " + longitude;
-        place_now_txtView.setText(now_location);
+        //place_now_txtView.setText(now_location);
 
         Thread t = new Thread(this);
         t.start();
@@ -228,10 +228,16 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         rating = store_data.get(max_index).getRating().toString();
         business_state = store_data.get(max_index).getBusiness_status();
         open_now = store_data.get(max_index).getOpen_now();
-        card_content = store_name + "\n" + rating + "\n" + business_state + "\n" + open_now;
+//        if(open_now.equalsIgnoreCase("false")){
+//            open_now = "No";
+//        }
+//        else if(open_now.equalsIgnoreCase("true")){
+//            open_now = "Yes";
+//        }
+        card_content = "Name - " + store_name + "\nRating - " + rating + "\nBusiness state - " + business_state + "\nOpen now? " + open_now;
 
         Log.d("check", card_content);
-        charSequence = card_content;
+
         //place_result_txtView.setText(charSequence);
 
         //여기까지
