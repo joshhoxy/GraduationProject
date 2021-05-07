@@ -24,17 +24,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    private static final String TAG = "SignUpActivity";
+    private static final String TAG = "signuplog";
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-
+    private DatabaseReference userRef;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        userRef = FirebaseDatabase.getInstance().getReference().child("User");
 
 
         // Initialize Firebase Auth
@@ -67,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
         EditText p_ch_text = (EditText)findViewById(R.id.passwordCheckEditText);
 
         String email = e_text.getText().toString();
-        String name = n_text.toString();
+        String name = n_text.getText().toString();
         String password = p_text.getText().toString();
         String passwordCheck = p_ch_text.getText().toString();
 
@@ -83,20 +82,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     String UID = user.getUid();
-                                    User newUser = new User(name,email);
-                                    mDatabase.child(UID).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            // Write was successful!
-                                            Log.d(TAG,"write success");
-                                        }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    // Write failed
-                                                    Log.d(TAG,"write failed");
-                                                }
-                                            });
+                                    //User newUser = new User(name,email);
+                                    Log.d(TAG,user.getEmail() + "name: "+ user.getDisplayName());
+                                    userRef.child(UID).child("name").setValue(name);
+                                    userRef.child(UID).child("email").setValue(email);
                                     startToast("회원가입에 성공하였습니다.");
                                     startLoginActivity();
                                     //UI
