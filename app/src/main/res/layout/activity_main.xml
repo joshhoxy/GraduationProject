@@ -27,6 +27,7 @@
         android:textAlignment="center"
         android:layout_marginBottom="30dp"
         android:text="WHAT's IN there?"
+        android:paddingTop="10dp"
         android:textColor="#ffffff"
         android:fontFamily="@font/cafe24surround"
         android:background="#77000000"
@@ -43,6 +44,18 @@
             android:background="#77000000"
             android:textSize="15dp"
             android:fontFamily="@font/cafe24regular"
+            />
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="bottom|center"
+            android:text="logout"
+            android:textColor="#ffffff"
+            android:background="#77000000"
+            android:textSize="15dp"
+            android:fontFamily="@font/cafe24regular"
+            android:visibility="invisible"
             />
 
 

@@ -35,6 +35,16 @@
             android:inputType="textEmailAddress" />
 
         <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:fontFamily="@font/cafe24regular"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress" />
+
+        <EditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +66,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/signUpButton"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -65,7 +75,7 @@
             android:text="Registration" />
 
         <Button
-            android:id="@+id/gotoLoginButton"
+            android:id="@+id/btn_goToLoginActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

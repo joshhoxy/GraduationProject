@@ -8,21 +8,21 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:text="WHAT's IN"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:fontFamily="@font/cafe24surround"
         android:textColor="#000000"
         android:gravity="center"
-        android:layout_marginBottom= "5dp"
+        android:layout_marginBottom= "20dp"
         />
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:textSize="13sp"
         android:inputType="textEmailAddress"
         android:hint="E-mail"
         android:fontFamily="@font/cafe24regular"
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:ems="10"
+        android:textSize="13sp"
         android:hint="Enter Password"
         android:fontFamily="@font/cafe24regular"
         android:layout_marginBottom="5dp"
@@ -97,7 +97,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:text="Are you not our member yet?"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:fontFamily="@font/cafe24regular"/>
         <Button
             android:id="@+id/signUpButton"

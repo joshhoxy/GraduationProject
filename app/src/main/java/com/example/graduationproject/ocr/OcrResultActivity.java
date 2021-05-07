@@ -120,7 +120,6 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
                     Anchor anchor = hitResult.createAnchor();
                     AnchorNode anchorNode = new AnchorNode(anchor);
                     anchorNode.setParent(arFragment.getArSceneView().getScene());
-
                     createModel(anchorNode,selected);
                 }
             }
@@ -294,10 +293,8 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
                     }
                 }
             }
-
             if (i > 0) costs[s2.length()] = lastValue;
         }
-
         return costs[s2.length()];
     }
 }

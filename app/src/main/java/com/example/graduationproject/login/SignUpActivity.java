@@ -11,52 +11,48 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.graduationproject.R;
+import com.example.graduationproject.database.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        findViewById(R.id.signUpButton).setOnClickListener(onClickListener);
-        findViewById(R.id.gotoLoginButton).setOnClickListener(onClickListener);
+        findViewById(R.id.btn_register).setOnClickListener(onClickListener);
+        findViewById(R.id.btn_goToLoginActivity).setOnClickListener(onClickListener);
     }
-
-/*    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }*/
-
-   /* @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        moveTaskToBack(true);
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(1);
-    }*/
 
     View.OnClickListener onClickListener = new View.OnClickListener(){
         @Override
         public void onClick(View v){
             switch (v.getId()){
-                case R.id.signUpButton:
+                case R.id.btn_register:
                     signUp();
                     break;
 
-                case R.id.gotoLoginButton:
+                case R.id.btn_goToLoginActivity:
                     startLoginActivity();
                     break;
             }
@@ -66,10 +62,12 @@ public class SignUpActivity extends AppCompatActivity {
     private void signUp(){
 
         EditText e_text = (EditText)findViewById(R.id.emailEditText);
+        EditText n_text = (EditText)findViewById(R.id.nameEditText);
         EditText p_text = (EditText)findViewById(R.id.passwordEditText);
         EditText p_ch_text = (EditText)findViewById(R.id.passwordCheckEditText);
 
         String email = e_text.getText().toString();
+        String name = n_text.toString();
         String password = p_text.getText().toString();
         String passwordCheck = p_ch_text.getText().toString();
 
@@ -84,7 +82,23 @@ public class SignUpActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    String UID = user.getUid();
+                                    User newUser = new User(name,email);
+                                    mDatabase.child(UID).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            // Write was successful!
+                                            Log.d(TAG,"write success");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    // Write failed
+                                                    Log.d(TAG,"write failed");
+                                                }
+                                            });
                                     startToast("회원가입에 성공하였습니다.");
+                                    startLoginActivity();
                                     //UI
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -110,5 +124,6 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent = new Intent (this,com.example.graduationproject.login.LoginActivity.class);
         startActivity(intent);
     }
+
 }
 

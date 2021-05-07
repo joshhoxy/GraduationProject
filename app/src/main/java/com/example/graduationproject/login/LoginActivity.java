@@ -1,6 +1,7 @@
 package com.example.graduationproject.login;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,19 +36,25 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 10;
     private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager mCallbackManager;
+    private DatabaseReference mDatabase;
     Button signUpBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //회원가입 버튼
         signUpBtn = findViewById(R.id.signUpButton);
@@ -61,7 +68,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
         findViewById(R.id.loginButton).setOnClickListener(onClickListener);
 
         //SNS 로그인 _ 구글
@@ -84,6 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                 startToast("Success to login by Facebook.");
                 handleFacebookAccessToken(loginResult.getAccessToken());
             }
+
+
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
@@ -104,6 +112,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (FirebaseAuth.getInstance().getCurrentUser() !=null) {
+            startToast("Already logged in");
+            startMainActivity();
+        }
+        else{
+            Log.d(TAG,"logged out");
+        }
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener(){
@@ -189,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startMainActivity(){
-        Intent intent = new Intent (this,com.example.graduationproject.login.MainActivity.class);
+        Intent intent = new Intent (this,com.example.graduationproject.MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -230,6 +245,20 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    public void updateUserInfo (FirebaseUser user) {
+        if (user != null) {
+            for (UserInfo profile : user.getProviderData()) {
+                // Id of the provider (ex: google.com)
+                String providerId = profile.getProviderId();
+                // UID specific to the provider
+                String uid = profile.getUid();
+                // Name, email address, and profile photo Url
+                String name = profile.getDisplayName();
+                String email = profile.getEmail();
+            }
+        }
+
+    }
 
 
 }
