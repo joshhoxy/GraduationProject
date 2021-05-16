@@ -1,5 +1,6 @@
 package com.example.graduationproject.ocr;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,10 +52,15 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
     TextView place_now_txtView;
     TextView place_result_txtView;
     String result_text;
+    Button mapBtn;
 
     String result;
     GpsTracker gpsTracker;
-    PlaceAPI places;
+    PlaceAPI places_r;
+    PlaceAPI places_c;
+    PlaceAPI places_b;
+    PlaceAPI places_bs;
+    PlaceAPI places_h;
 
     double latitude;
     double longitude;
@@ -126,6 +133,19 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
             }
         });
 
+        mapBtn = findViewById(R.id.btn_goMap);
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ComponentName cn = new ComponentName("com.example.graduationproject", "com.example.graduationproject.parse.MapMainActivity");
+
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                intent.setComponent(cn);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setupModel() {
@@ -194,12 +214,27 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
 
-        //현재 위치 근방에 있는 가게들의 정보를 알아온다.
-        places = new PlaceAPI(this, latitude, longitude, 500.00, "restaurant");
-        places.parsing();
+        places_r = new PlaceAPI(this, latitude, longitude, 100.00, "restaurant");
+        places_r.parsing();
+
+        places_c = new PlaceAPI(this, latitude, longitude, 100.00, "cafe");
+        places_c.parsing();
+
+        places_b = new PlaceAPI(this, latitude, longitude, 100.00, "bakery");
+        places_b.parsing();
+
+        places_bs = new PlaceAPI(this, latitude, longitude, 100.00, "bus_station");
+        places_bs.parsing();
+
+        places_h = new PlaceAPI(this, latitude, longitude, 100.00, "hospital");
+        places_h.parsing();
 
         ArrayList<StoreData> store_data = new ArrayList<>();
-        store_data = places.getList();
+        store_data = places_r.getList();
+        store_data.addAll(places_c.getList());
+        store_data.addAll(places_b.getList());
+        store_data.addAll(places_bs.getList());
+        store_data.addAll(places_h.getList());
 
         //여기부터
 
