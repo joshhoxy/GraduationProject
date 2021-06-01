@@ -7,6 +7,7 @@
     android:padding="16dp"
     android:textSize="20sp"
     android:text="TIGER"
+    android:font="@font/cafe24regular"
     android:textAllCaps="true"
     android:background="@drawable/round_bg"
     android:layout_width="wrap_content"
