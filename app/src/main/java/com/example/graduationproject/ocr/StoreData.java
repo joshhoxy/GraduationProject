@@ -7,13 +7,15 @@ public class StoreData {
     private String business_status;
     private String open_now;
     private String all;
+    private String place_id;
 
-    public StoreData(String store_name, Float price_level, Float rating, String business_status, String open_now) {
+    public StoreData(String store_name, Float price_level, Float rating, String business_status, String open_now, String place_id) {
         this.store_name = store_name;
         this.price_level = price_level;
         this.rating = rating;
         this.business_status = business_status;
         this.open_now = open_now;
+        this.place_id = place_id;
 
     }
 
@@ -36,6 +38,8 @@ public class StoreData {
     public String getOpen_now() {
         return open_now;
     }
+
+    public String getPlace_id() { return place_id; }
 
 
     public String getAll(){

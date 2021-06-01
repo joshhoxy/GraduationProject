@@ -26,6 +26,9 @@ import com.google.ar.sceneform.rendering.ViewRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.BaseArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,13 +75,24 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
     String rating;
     String business_state;
     String open_now;
+    String place_id;
 
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference logRef;
+    private FirebaseAuth mAuth;
+    private String UID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_result);
+
+        mAuth = FirebaseAuth.getInstance();
+        UID = mAuth.getCurrentUser().getUid();
+        mDatabase = FirebaseDatabase.getInstance();
+        logRef = mDatabase.getReference().child("User").child(UID).child("log");
+
 
         //ocr_result_txtView = (TextView) findViewById(R.id.ocr_result_text);
         //place_now_txtView = (TextView) findViewById(R.id.place_now_text);
@@ -146,7 +160,6 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
                             return null;
                         }
                 );
-
     }
 
     private void createModel(AnchorNode anchorNode, int selected){
@@ -227,6 +240,9 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
         rating = store_data.get(max_index).getRating().toString();
         business_state = store_data.get(max_index).getBusiness_status();
         open_now = store_data.get(max_index).getOpen_now();
+
+        place_id = store_data.get(max_index).getPlace_id();
+
 //        if(open_now.equalsIgnoreCase("false")){
 //            open_now = "No";
 //        }
@@ -234,6 +250,15 @@ public class OcrResultActivity extends AppCompatActivity implements Runnable{
 //            open_now = "Yes";
 //        }
         card_content = "Name - " + store_name + "\nRating - " + rating + "\nBusiness state - " + business_state + "\nOpen now? " + open_now;
+
+        // upload search history _ 일괄처리
+        //logRef.push().setValue(card_content);
+
+
+        logRef =logRef.child(place_id);
+        logRef.child("name").setValue(store_name);
+        logRef.child("rating").setValue(rating);
+        logRef.child("name").setValue(store_name);
 
         Log.d("check", card_content);
 

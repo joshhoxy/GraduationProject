@@ -43,7 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "Logincheck";
+    private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 10;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               login();
+                login();
             }
         });
 
@@ -119,19 +119,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (FirebaseAuth.getInstance().getCurrentUser() !=null) {
-//            startToast("Already logged in");
-//            startMainActivity();
-//        }
-//        else{
-//            Log.d(TAG,"logged out");
-//        }
-//    }
 
     private void login(){
 
@@ -210,6 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    // Login by Facebook
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -255,4 +243,3 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
-

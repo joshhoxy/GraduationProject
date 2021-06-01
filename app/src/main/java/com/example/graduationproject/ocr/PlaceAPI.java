@@ -96,7 +96,16 @@ public class PlaceAPI {
                     open_now = opening_hours.getString("open_now");
                 }
 
-                mList.add(new StoreData(store_name, Float.valueOf(price_level), Float.valueOf(rating), business_status, open_now));
+                //place id
+                String place_id = "null";
+                if(result.has("place_id"))
+                {
+                    place_id = result.getString("place_id");
+                }
+
+
+
+                mList.add(new StoreData(store_name, Float.valueOf(price_level), Float.valueOf(rating), business_status, open_now,place_id));
                 //Log.d("check", String.valueOf(mList.size()));
             }
         }catch (JSONException e){
